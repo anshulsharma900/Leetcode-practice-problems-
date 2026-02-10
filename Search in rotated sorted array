@@ -1,0 +1,46 @@
+class Solution {
+public:
+    // BINARY SEARCH APPROACH
+    int bs(vector<int>& nums, int target, int start, int end){
+        while(start<=end){
+            int mid = start+(end-start)/2;
+            if(nums[mid]==target) return mid;
+            else if(nums[mid]<target) start=mid+1;
+            else end=mid-1;
+        }
+        return -1;
+    }
+
+
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        int start=0, end=n-1;
+
+        while(start<end){
+            int mid = start+(end-start)/2;
+            if(nums[mid]==target) return mid;
+            if(nums[mid] > nums[end]){
+                start=mid+1;
+            }
+            else{
+                end=mid;
+            }
+        }
+        int firstSortedArray= bs(nums,target,0, start-1);
+        int secondSortedArray= bs(nums,target,start, n-1);
+        if(firstSortedArray==-1 && secondSortedArray==-1) return -1;
+        if(firstSortedArray==-1) return secondSortedArray;
+        return firstSortedArray;
+
+
+        // LINEAR SEARCH APPROACH
+        // for(int i=0; i<n; i++){
+        //     if(nums[i] == target){
+        //         return i;
+        //         break;
+        //     }
+            
+        // }
+        // return -1;
+    }
+};

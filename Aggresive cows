@@ -1,0 +1,40 @@
+class Solution {
+  public:
+    bool check(vector<int> &stalls, int k, int mid){
+        int cows=1;
+        int lastpos=stalls[0];
+        int n = stalls.size();
+        for(int i=0; i<n; i++){
+            if(stalls[i]-lastpos >= mid){
+                cows++;
+                lastpos=stalls[i];
+            }
+            if(cows>=k) return true;
+        }
+            return false;
+        
+    }
+  
+  
+  
+    int aggressiveCows(vector<int> &stalls, int k) {
+        sort(stalls.begin(), stalls.end());
+        int start=1;
+        int  end= stalls.back()-stalls.front();
+        int res=0;
+        
+        while(start<=end){
+            int mid = start+(end-start)/2;
+            
+            if(check(stalls,k,mid)){
+                res=mid;
+                start=mid+1;
+            }
+            else{
+                end=mid-1;
+            }
+        }
+        return res;
+        
+    }
+};

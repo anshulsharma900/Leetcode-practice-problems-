@@ -1,0 +1,35 @@
+// User function Template for C++
+
+class Solution {
+  public:
+    bool pairInSortedRotated(vector<int>& arr, int target) {
+        int n=arr.size();
+        int left, right;
+        int i;
+        for( i=0; i<n-1; i++){
+            if(arr[i]>arr[i+1]){
+                break;
+            }
+        }
+        
+            left=(i+1)%n;
+            right=i;
+            
+            while(left!=right){
+                if(arr[left]+arr[right]==target){
+                    return true;
+                }
+                
+                if(arr[left]+arr[right]<target){
+                    left=(left+1)%n;
+                }
+                
+                if(arr[left]+arr[right]>target){
+                    right=(right+n-1)%n;
+                }
+                
+            }
+        return false;
+        
+    }
+};
