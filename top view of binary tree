@@ -1,0 +1,48 @@
+/*
+class Node {
+  public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+*/
+
+class Solution {
+  public:
+    vector<int> topView(Node *root) {
+        // code here
+        vector<int> ans;
+        if(!root) return ans;
+        int Hd = 0;
+        
+        queue<pair<Node*, int>> q;
+        
+        map<int,int> mp;
+        q.push({root,Hd});
+        
+        while(!q.empty()){
+            auto node = q.front();
+            q.pop();
+            
+            Node* front = node.first;
+            int Hd = node.second;
+            
+            // check visiting first time
+            if(mp.find(Hd)==mp.end()){
+                mp[Hd] = front->data;
+            }
+            if(front->left) q.push({front->left, Hd-1});
+            if(front->right) q.push({front->right, Hd+1});
+            }
+            for(auto it:mp){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+}; 
